@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gizmo;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,8 +33,11 @@ namespace RedirectMachine_2_0
         {
             Directory = directory;
 
-            if (System.IO.Directory.GetFiles(Directory, "*.xlsx").Length >= 0)
+            if (System.IO.Directory.GetFiles(Directory, "*.xlsx").Length != 0)
+            {
                 Console.WriteLine("WARNING: Folder contains one or more xlsx files. Please change any xlsx file types to csv.");
+                Gremlin.SendEmail("marcus.legault@scorpion.co", "xlsx files detected", "WARNING: Folder contains one or more xlsx files. Please change any xlsx file types to csv.");
+            }
 
             InputOldUrlFile = System.IO.Directory.GetFiles(Directory, "OldSiteUrls.csv")[0];
             InputNewUrlFile = System.IO.Directory.GetFiles(Directory, "NewSiteUrls.csv")[0];
